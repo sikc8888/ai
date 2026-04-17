@@ -1,0 +1,57 @@
+name: Build and Release APK
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+      
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+        env:
+          GRADLE_OPTS: -Xmx2048m
+      
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+        env:
+          GRADLE_OPTS: -Xmx2048m
+      
+      - name: Upload APK to Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            app/build/outputs/apk/release/app-release-unsigned.apk
+            app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk-builds
+          path: |
+            app/build/outputs/apk/release/app-release-unsigned.apk
+            app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30

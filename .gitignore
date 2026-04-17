@@ -1,0 +1,38 @@
+# Gradle files
+.gradle/
+build/
+*.apk
+*.aab
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*~
+
+# Android build artifacts
+app/build/
+app/.cxx/
+
+# Local properties
+local.properties
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credentials
+keystore.jks
+keystore.properties
+signing.properties
+
+# Temp files
+*.log
+*.tmp
+
+# Node modules (if using)
+node_modules/
