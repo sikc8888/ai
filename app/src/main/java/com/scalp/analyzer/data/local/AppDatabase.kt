@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.scalp.analyzer.data.local.converter.ListStringConverter
 import com.scalp.analyzer.data.local.dao.CustomerDao
 import com.scalp.analyzer.data.local.dao.DetectionRecordDao
 import com.scalp.analyzer.data.local.entity.Customer
@@ -14,6 +16,7 @@ import com.scalp.analyzer.data.local.entity.DetectionRecord
     version = 1,
     exportSchema = false
 )
+@TypeConverters(ListStringConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun customerDao(): CustomerDao
     abstract fun detectionRecordDao(): DetectionRecordDao
