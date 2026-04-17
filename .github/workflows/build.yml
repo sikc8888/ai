@@ -24,16 +24,13 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
       
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-      
       - name: Build Release APK
-        run: ./gradlew assembleRelease
+        run: gradle assembleRelease
         env:
           GRADLE_OPTS: -Xmx2048m
       
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: gradle assembleDebug
         env:
           GRADLE_OPTS: -Xmx2048m
       
