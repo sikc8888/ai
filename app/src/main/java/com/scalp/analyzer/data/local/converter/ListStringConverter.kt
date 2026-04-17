@@ -13,12 +13,12 @@ class ListStringConverter {
             emptyList()
         } else {
             val listType = object : TypeToken<List<String>>() {}.type
-            gson.fromJson(value, listType)
+            gson.fromJson<List<String>>(value, listType)
         }
     }
 
     @TypeConverter
     fun toString(list: List<String>?): String {
-        return gson.toJson(list ?: emptyList())
+        return gson.toJson(list ?: emptyList<String>())
     }
 }

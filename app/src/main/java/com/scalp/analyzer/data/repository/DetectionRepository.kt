@@ -38,7 +38,7 @@ class DetectionRepository(
             finalTags = analysisResult?.rawLabels ?: emptyList(),
             scalpAge = analysisResult?.scalpAge ?: 0,
             overallScore = analysisResult?.getOverallScore() ?: 0,
-            scoresJson = Gson().toJson(analysisResult?.scores ?: emptyMap())
+            scoresJson = Gson().toJson(analysisResult?.scores ?: emptyMap<String, Any>())
         )
         db.detectionRecordDao().insert(record)
         return record
